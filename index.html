@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Opdracht MongoDb</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  </head>
+
+
+
+
+
+  <body>
+    <form method="POST">
+    <input name="inputTemp">
+    <input name="inputTime">
+    <input type="submit">
+    </form>
+
+    <table id="Table1">
+      <tr>
+          <th>Temperatuur</th>
+          <th>Tijd</th>
+      </tr>
+  </table>
+  <div id="Grafiek"></canvas>
+    <h1 id="tekst"></h1>
+    <div id="text"></div>
+    <script>
+      var div = document.getElementById('text');
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            div.innerHTML += '<table>';
+            var arr = JSON.parse(xhttp.responseText);
+            for (var i = 0; i < arr.length; i++){
+              div.innerHTML += '<tr><td>'+arr[i]['Temp']+'</td></tr>\n';
+            }
+            '\n';
+            for (var i = 0; i < arr.length; i++){
+              div.innerHTML += '<tr><td>'+arr[i]['Time']+'</td></tr>\n';
+            }
+          }
+      };
+      xhttp.open("GET", "/data.json", true);
+      xhttp.send();
+    </script>
+  </body>
+</html>
